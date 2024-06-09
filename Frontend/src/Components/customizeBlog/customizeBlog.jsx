@@ -18,9 +18,10 @@ const CustomizeBlog = () => {
         let filterBlogInfo=data?.filter(ele=>ele._id===id);
         console.log(filterBlogInfo);
         setBlog(filterBlogInfo);
-    }
+    } 
     useEffect(()=>{
         findBlog();
+        console.log({id});
     },[data,id]);
 
     // function to delete blog
@@ -35,9 +36,10 @@ const CustomizeBlog = () => {
             Toast.error("Failed to delete data");
         }
     }
-    if(blog.length>0){
         return (
             <div className='grid place-content-center pt-5 text-center'>
+               { (blog.length>0)?
+               <div>
                 <div className='text-center font-semibold text-xl uppercase'>{blog[0].title}</div>
                 <div className='max-w-[600px] h-auto my-5'><img src={blog[0]?.cover_image} alt={blog[0]?.title} width="100%"/></div>
                 <div className=' text-xl'>{blog[0].summary}</div>
@@ -46,10 +48,10 @@ const CustomizeBlog = () => {
                 <div className='flex gap-4 items-center'><AiOutlineLike/><AiOutlineDislike/></div>
                     <div className='flex gap-4 items-center'><FaRegEdit/><FaRegTrashCan onClick={deleteBlog}/></div>
                 </div>
+                </div>
+                :<p>loading...</p>}
             </div>
           )
-    }
-    return <div>loading...</div>
 }
 
 export default CustomizeBlog;
