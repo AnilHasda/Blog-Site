@@ -5,14 +5,12 @@ import Toast from "react-hot-toast";
 import axios from "axios";
 import { Input } from '@/shadcnComponents/ui/input';
 import { Button } from '@/shadcnComponents/ui/button';
-import { useSelector } from 'react-redux';
 
-const AddBlog = () => {
+const UpdateBlog = () => {
   let  [details,setDetails]=useState("");
   let [formData,setFormData]=useState({});
   let [image,setImage]=useState("");
   let [previewImage,setPreviewImage]=useState("");
-  let isLoggin=useSelector(state=>state.reducer.isLoggin);
   function handleFormData(e){
 let {name,value}=e.target;
 setFormData(prev=>({...prev,[name]:value}));
@@ -49,7 +47,6 @@ setPreviewImage(URL.createObjectURL(file));
   return (
     <>
     <div id="editor" className='w-full h-auto  max-w-[600px] m-auto mt-[100px]'>
-      {isLoggin===true?
       <form onSubmit={handleForm} method="post"encType='multipart/form-data'>
       <Input type="text"className='w-full h-[35px] mt-5 outline-none border border-[#ddd] px-[10px]'placeholder='Title'name="title"onChange={handleFormData} required/>
       <Input type="text"className='w-full h-[35px] mt-5 outline-none border border-[#ddd] px-[10px]'placeholder='Summary'name="summary"onChange={handleFormData} required/>
@@ -68,10 +65,9 @@ setPreviewImage(URL.createObjectURL(file));
               ]} onChange={setDetails}/>
     <Button type="submit" className='w-full h-[40px] mt-5'>Create Post</Button>
     </form>
-    :<p>Please login to continue !</p>}
     </div>
     </>
   );
 }
 
-export default AddBlog;
+export default UpdateBlog;

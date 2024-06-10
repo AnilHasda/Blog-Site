@@ -9,9 +9,12 @@ import {
 } from "@/shadcnComponents/ui/card";
 import { Input } from '@/shadcnComponents/ui/input';
 import { Button } from '@/shadcnComponents/ui/button';
+import { updateLoginStatus } from '@/redux/slices/slices';
+import { useDispatch } from 'react-redux';
 
 const Login = () => {
   let [formData,setFormData]=useState({});
+  let dispatch=useDispatch();
   let navigate=useNavigate();
   const handleFormData=(e)=>{
     let {name,value}=e.target;
@@ -29,6 +32,7 @@ let {data}=await axios.post("http://localhost:4000/api/v1/auth/authontication",f
 });
 console.log(data)
 Toast.success(data.message);
+dispatch(updateLoginStatus(data.isLoggin));
 navigate("/");
 }catch(error){
   console.log(error)

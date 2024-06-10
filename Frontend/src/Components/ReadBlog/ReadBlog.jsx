@@ -9,11 +9,13 @@ import { AiOutlineLike } from "react-icons/ai";
 import { AiFillDislike } from "react-icons/ai";
 import { AiOutlineDislike } from "react-icons/ai";
 import Toast from "react-hot-toast";
+import { useNavigate } from 'react-router-dom';
 
-const CustomizeBlog = () => {
+const ReadBlog = () => {
     let [blog,setBlog]=useState([]);
     let data=useSelector(state=>state.reducer.blogData);
     let {id}=useParams();
+    let navigate=useNavigate();
     function findBlog(){
         let filterBlogInfo=data?.filter(ele=>ele._id===id);
         console.log(filterBlogInfo);
@@ -46,12 +48,12 @@ const CustomizeBlog = () => {
                 <div dangerouslySetInnerHTML={{ __html: blog[0].details }}></div>
                 <div className='flex justify-between items-center text-[20px] my-5'>
                 <div className='flex gap-4 items-center'><AiOutlineLike/><AiOutlineDislike/></div>
-                    <div className='flex gap-4 items-center'><FaRegEdit/><FaRegTrashCan onClick={deleteBlog}/></div>
+                    <div className='flex gap-4 items-center'><FaRegEdit onClick={()=>navigate("/updateBlog")}/><FaRegTrashCan onClick={deleteBlog}/></div>
                 </div>
                 </div>
-                :<p>loading...</p>}
+                :<p>No such data found !</p>}
             </div>
           )
 }
 
-export default CustomizeBlog;
+export default ReadBlog;

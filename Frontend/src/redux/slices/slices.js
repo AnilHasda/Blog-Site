@@ -10,6 +10,8 @@ let initialState = {
 let globalData = createSlice({
   name: "blogData",
   initialState,
+  isLoggin:false,
+  isOwner:false,
   reducers: {
     getBlogData: (state, action) => {
       state.blogData = action.payload;
@@ -21,7 +23,14 @@ let globalData = createSlice({
     updateLoader: (state, action) => {
       state.loadingStatus = action.payload;
     },
+    updateLoginStatus:(state,action)=>{
+      console.log(action.payload)
+      state.isLoggin=action.payload;
+    },
+    updateOwnerStatus:(state,action)=>{
+      state.isOwner=action.payload;
+    }
   },
 });
-export const { getBlogData, getSearchData, updateLoader } = globalData.actions;
+export const { getBlogData, getSearchData, updateLoader,updateLoginStatus,updateOwnerStatus } = globalData.actions;
 export default globalData.reducer;

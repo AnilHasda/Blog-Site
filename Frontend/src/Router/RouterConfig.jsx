@@ -5,7 +5,9 @@ import Layout from '../Components/Outlet/Layout';
 import Login from '../Components/Login/Login';
 import Signup from '../Components/Signup/Signup';
 import AddBlog from '../Components/AddBlog/AddBlog';
-import CustomizeBlog from '../Components/customizeBlog/customizeBlog';
+import ReadBlog from '@/Components/ReadBlog/ReadBlog';
+import UpdateBlog from '@/Components/ReadBlog/updateBlog';
+
 const RouterConfig = () => {
   return (
     <>
@@ -16,7 +18,8 @@ const RouterConfig = () => {
         <Route  path="/login"element={<Login/>}/>
         <Route  path="/signup"element={<Signup/>}/>
         <Route  path="/addBlog"element={<AddBlog/>}/>
-        <Route path="/readBlog/:id"element={<CustomizeBlog/>}/>
+        <Route path="/readBlog/:id"element={<ReadBlog/>}/>
+        <Route path="/updateBlog"element={<UpdateBlog/>}/>
         </Route>
     </Routes>
     </BrowserRouter>
