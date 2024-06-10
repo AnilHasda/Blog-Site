@@ -52,11 +52,11 @@ authSchema.pre("save", async function (next) {
 
 //function that generates access token
 authSchema.methods.generateAccessToken = (payload, secret, expires) =>
-  jwt.sign(payload, secret, { expiresIn: expires });
+  jwt.sign(payload, secret, { expiresIn: parseInt(expires) });
 
 // function that generates refresh token
 authSchema.methods.generateRefreshToken = (payload, secret, expires) =>
-  jwt.sign(payload, secret, { expiresIn: expires });
+  jwt.sign(payload, secret, { expiresIn: parseInt(expires) });
 authSchema.methods.test = () => {
   console.log("this is testing message");
 };

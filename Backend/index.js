@@ -12,13 +12,13 @@ import blogRouter from "./Routes/blogRoutes/blogRoutes.js";
 import authRouter from "./Routes/authRoutes/authroutes.js";
 import errorHandler from "./Utils/errorHandler.js";
 
+app.use(cookieParser());
 app.use(
   cors({
     origin: "http://localhost:5173",
     credentials: true,
   })
 );
-app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

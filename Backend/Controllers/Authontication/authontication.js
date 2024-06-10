@@ -15,8 +15,18 @@ const authontication = async (req, resp, next) => {
         process.env.ACCESS_TOKEN_SECRET,
         process.env.ACCESS_TOKEN_EXPIRES
       );
+      let refresh_token = authSchema.methods.generateRefreshToken(
+        req.body,
+        process.env.REFRESH_TOKEN_SECRET,
+        process.env.REFRESH_TOKEN_EXPIRES
+      );
       resp.cookie("access_token", access_token, {
         maxAge: process.env.ACCESS_COOKIE_EXPIRES,
+        secure: true,
+        httpOnly: true,
+      });
+      resp.cookie("refresh_token", refresh_token, {
+        maxAge: process.env.REFRESH_COOKIE_EXPIRES,
         secure: true,
         httpOnly: true,
       });

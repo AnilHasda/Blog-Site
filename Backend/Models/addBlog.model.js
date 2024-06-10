@@ -1,6 +1,9 @@
-import { Timestamp } from "mongodb";
-import {Schema,model} from "mongoose";
+
+import mongoose, {Schema,model} from "mongoose";
 const addBlogSchema=new Schema({
+    owner:{
+    type:Schema.Types.ObjectId,ref:"authmodels"
+    },
     title:{
         type:String,
         required:true,
