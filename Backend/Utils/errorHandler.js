@@ -1,6 +1,5 @@
 import { apiErrors } from "./apiErrors.js";
 const errorHandler = (err, req, resp, next) => {
-  console.log("error handler");
   if (err instanceof apiErrors) {
     resp.status(err.statusCode).json({ message: err.message });
   } else {

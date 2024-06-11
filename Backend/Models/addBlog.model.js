@@ -2,7 +2,7 @@
 import mongoose, {Schema,model} from "mongoose";
 const addBlogSchema=new Schema({
     owner:{
-    type:Schema.Types.ObjectId,ref:"authmodels"
+    type:Schema.Types.ObjectId,ref:"authmodel"
     },
     title:{
         type:String,

@@ -5,14 +5,16 @@ import { blog } from "../../Models/addBlog.model.js";
 import { cloudinaryFileUpload } from "../../services/cloudinary.fileupload.js";
 import { ObjectId } from "mongodb";
 const addBlog = tryCatchWrapper(async (req, resp) => {
-  console.log(req.body)
+  let {userId,title,summary,details}=req.body;
+  console.log(req.file)
   if (req.file) {
     let cloudinaryFIle = await cloudinaryFileUpload(
       req.file.path,
       "blogsiteFiles"
     );
     if (cloudinaryFIle?.url) {
-      let insert = new blog({ ...req.body, cover_image: cloudinaryFIle.url });
+      console.log("this is test message");
+      let insert = new blog({owner:userId,title,summary,details,cover_image: cloudinaryFIle.url });
       let finalResponse = await insert.save();
       if (finalResponse) {
         console.log(finalResponse);
@@ -29,8 +31,10 @@ const addBlog = tryCatchWrapper(async (req, resp) => {
   }
 });
 const getBlogs =tryCatchWrapper(async (req,resp)=>{
-    let responseData=await blog.find({});
+  console.log(req.params.id)
+    let responseData=await blog.find({}).populate("owner");
     if(responseData){
+      console.log(responseData)
         let response = new apiResponse(200,responseData, true);
         resp.status(response.statusCode).json({message:response.message,success:response.success});
     }else{

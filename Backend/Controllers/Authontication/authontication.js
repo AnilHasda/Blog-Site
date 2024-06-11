@@ -32,7 +32,7 @@ const authontication = async (req, resp, next) => {
       });
       resp
         .status(response.statusCode)
-        .json({ message: response.message, success: response.success ,isLoggin:true});
+        .json({ message: response.message, success: response.success ,isLoggin:true,user:user,_id:findUser[0]._id});
     } else {
       next(new apiErrors(404, "password doesnot match"));
     }
