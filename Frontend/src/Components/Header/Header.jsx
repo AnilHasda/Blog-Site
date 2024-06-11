@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink,useNavigate } from 'react-router-dom';
 import { ModeToggle } from '@/shadcnComponents/ui/toggleMode';
 import { Input } from '@/shadcnComponents/ui/input';
 import { useSelector ,useDispatch} from 'react-redux';
 import { getBlogData,getSearchData } from '@/redux/slices/slices';
-import { updateLoader,updateLoginStatus } from '@/redux/slices/slices';
+import { updateLoader,updateLoginStatus,updateUserInfo } from '@/redux/slices/slices';
+import {DropdownMenuCheckboxes} from "../dropDown/DropDown";
 import Toast from "react-hot-toast";
 import axios from "axios";
 const Header = () => {
 let searchData=useSelector(state=>state.reducer.searchData);
 let blog=useSelector(state=>state.reducer.blogData);
 let isLoggin=useSelector(state=>state.reducer.isLoggin);
+let userId=useSelector(state=>state.reducer.userInfo.id);
 let dispatch=useDispatch();
 let navigate=useNavigate();
 
@@ -20,6 +22,8 @@ const getLogInfo=async ()=>{
   let {data}=await axios.get("http://localhost:4000/api/v1/auth/isUserLoggin",{withCredentials:true});
   console.log(data);
   dispatch(updateLoginStatus(data.isLoggin));
+  dispatch(updateUserInfo({id:data.id,user:data.user}));
+  
   }catch(error){
     console.log(error);
     dispatch(updateLoginStatus(error.response?.data?.isLoggin || false));
@@ -80,7 +84,7 @@ navigate("/");
         }
        <NavLink to="/addBlog"><p>Add Blogs</p></NavLink>
        {isLoggin===true &&
-       <NavLink to="#"onClick={logout}><p>Log out</p></NavLink>
+       <NavLink to="#"><DropdownMenuCheckboxes logout={logout}/></NavLink>
        }
        <ModeToggle/>
       </div>

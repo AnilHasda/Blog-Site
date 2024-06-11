@@ -6,6 +6,7 @@ import axios from "axios";
 import { Input } from '@/shadcnComponents/ui/input';
 import { Button } from '@/shadcnComponents/ui/button';
 import { useSelector } from 'react-redux';
+import { useAsyncError } from 'react-router-dom';
 
 const AddBlog = () => {
   let  [details,setDetails]=useState("");
@@ -13,14 +14,18 @@ const AddBlog = () => {
   let [image,setImage]=useState("");
   let [previewImage,setPreviewImage]=useState("");
   let isLoggin=useSelector(state=>state.reducer.isLoggin);
+  let userId=useSelector(state=>state.reducer.userInfo.id);
   function handleFormData(e){
 let {name,value}=e.target;
 setFormData(prev=>({...prev,[name]:value}));
   }
+
+  // function that add blog
   async function handleForm(e){
     e.preventDefault();
    try {
     let sentData=new FormData();
+    sentData.append("userId",userId);
     sentData.append("title",formData.title);
     sentData.append("summary",formData.summary);
     sentData.append("cover_image",image);
@@ -41,6 +46,7 @@ setFormData(prev=>({...prev,[name]:value}));
 Toast.error("error while adding data");
    }
   }
+
   // function for preview image
   function preview(e){
 let file=e.target.files[0];

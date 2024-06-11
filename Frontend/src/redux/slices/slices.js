@@ -6,12 +6,16 @@ let initialState = {
   searchData: [],
 //   this state holds the status of loading status of api response
   loadingStatus: false,
+  isLoggin:false,
+  isOwner:false,
+  userInfo:{
+    id:null,
+    user:null
+  }
 };
 let globalData = createSlice({
   name: "blogData",
   initialState,
-  isLoggin:false,
-  isOwner:false,
   reducers: {
     getBlogData: (state, action) => {
       state.blogData = action.payload;
@@ -29,8 +33,12 @@ let globalData = createSlice({
     },
     updateOwnerStatus:(state,action)=>{
       state.isOwner=action.payload;
+    },
+    updateUserInfo:(state,action)=>{
+      state.userInfo.id=action.payload.id;
+      state.userInfo.user=action.payload.user;
     }
   },
 });
-export const { getBlogData, getSearchData, updateLoader,updateLoginStatus,updateOwnerStatus } = globalData.actions;
+export const { getBlogData, getSearchData, updateLoader,updateLoginStatus,updateOwnerStatus,updateUserInfo } = globalData.actions;
 export default globalData.reducer;
